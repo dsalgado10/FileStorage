@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaQuestionCircle, FaFileAlt } from 'react-icons/fa'
+import { FaFileAlt } from 'react-icons/fa'
 
 function Home() {
   return (
@@ -9,7 +9,19 @@ function Home() {
         <h1>Empresa</h1>
         <p>Documentos</p>
       </section>
-      <Link to='/nuevo-documento' className="btn btn-block">
+      <table style={{ width: '100%', border: '1px solid #ddd' }}>
+        <tr>
+          <th>Documento</th>
+          <th>Fecha</th>
+        </tr>
+        <tr>
+          <td>Archivo</td>
+        </tr>
+        <tr>
+          <td>Archivo</td>
+        </tr>
+      </table>
+      <Link style={{ marginTop: '16px' }} to='/nuevo-documento' className="btn btn-block">
         <FaFileAlt /> Subir nuevo documento
       </Link>
 
