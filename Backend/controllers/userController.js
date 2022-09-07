@@ -8,8 +8,8 @@ const User = require('../models/userModel');
 // Ruta: /api/users
 // Permiso: Publico
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body;
-    if (!name || !email || !password) {
+    const { name, email, employeeId, password } = req.body;
+    if (!name || !email || !password || !employeeId) {
         res.status(400)
         throw new Error('Incluya todos los campos')
     }
@@ -24,6 +24,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({
         name,
         email,
+        employeeId,
         password: hashedPassword,
     })
     if (user) {
@@ -31,6 +32,7 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            employeeId: user.employeeId,
             token: generateToken(user._id),
         })
     }
@@ -52,6 +54,7 @@ const loginUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            employeeId: user.employeeId,
             token: generateToken(user._id),
         })
     }
@@ -68,6 +71,7 @@ const getProfile = asyncHandler(async (req, res) => {
     const user = {
         id: req.user._id,
         email: req.user.email,
+        employeeId: req.user.employeeId,
         name: req.user.name 
     }
     res.status(200).json(user)

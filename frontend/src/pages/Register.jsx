@@ -10,11 +10,12 @@ function Register() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    employeeId: '',
     password: '',
     password2: '',
   });
 
-  const { name, email, password, password2 } = formData;
+  const { name, email, employeeId, password, password2 } = formData;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading } = useSelector((state) => state.auth)
@@ -36,6 +37,7 @@ function Register() {
       const userData = {
         name,
         email,
+        employeeId,
         password,
       }
 
@@ -45,7 +47,7 @@ function Register() {
           // Al hacer wrap a la AsyncThunkAction se puede navegar al usuario cuando
           // se obtiene un response correcto de la API o catch la AsyncThunkAction
           // rejection para mostrar un mensaje de error
-          toast.success(`Registered new user - ${user.name}`)
+          toast.success(`Usuario registrado - ${user.name}`)
           navigate('/')
         })
         .catch(toast.error)
@@ -71,6 +73,9 @@ function Register() {
           </div>
           <div className="form-group">
             <input type="email" className="form-control" id="email" name="email" value={email} onChange={onChange} placeholder="Ingrese su correo" required />
+          </div>
+          <div className="form-group">
+            <input type="text" className="form-control" id="employeeId" name="employeeId" value={employeeId} onChange={onChange} placeholder="Ingrese su cóodigo de empleado" required />
           </div>
           <div className="form-group">
             <input type="password" className="form-control" id="password" name="password" value={password} onChange={onChange} placeholder="Ingrese su contraseña" required />

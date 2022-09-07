@@ -10,6 +10,11 @@ const userSchema = mongoose.Schema({
         required: [true, 'Porfavor agregar un correo'],
         unique: true
     },
+    employeeId: {
+        type: String,
+        required: [true, 'Porfavor ingrese un cóodigo de empleado'],
+        unique: true
+    },
     password: {
         type: String,
         required: [true, 'Porfavor agregar una contraseña']
