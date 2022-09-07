@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import { FaSignInAlt } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../features/auth/authSlice';
+import Spinner from '../app/components/Spinner';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -16,7 +18,8 @@ function Login() {
   const { email, password } = formData;
 
   const dispatch = useDispatch();
-  const { user, isLoading, isSuccess, message } = useSelector(state => state.auth);
+  const navigate = useNavigate();
+  const { isLoading } = useSelector(state => state.auth);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -27,11 +30,26 @@ function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     const userData = {
       email,
       password,
     };
-    dispatch(login(userData));
+
+    dispatch(login(userData))
+      .unwrap()
+      .then((user) => {
+        // NOTA: al desenvolver AsyncThunkAction, podemos navegar al usuario después
+        // obtener una buena respuesta de nuestra API o capturar AsyncThunkAction
+        // rechazo para mostrar un mensaje de error
+        toast.success(`Ingresado como ${user.name}`)
+        navigate('/')
+      })
+      .catch(toast.error)
+  }
+
+  if (isLoading) {
+    return <Spinner />
   }
 
   return (
@@ -52,7 +70,7 @@ function Login() {
           </div>
           <div className="form-group">
             <button className="btn btn-block">
-              Registrarse
+              Ingresar
             </button>
           </div>
         </form>
