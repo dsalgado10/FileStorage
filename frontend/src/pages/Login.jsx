@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { FaSignInAlt } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../features/auth/authSlice';
-import Spinner from '../app/components/Spinner';
+import Spinner from '../components/Spinner';
 
 function Login() {
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
+    password: '',
   });
 
   const { email, password } = formData;

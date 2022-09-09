@@ -9,12 +9,16 @@ const documentSchema = mongoose.Schema({
     product: {
         type: String,
         required: [true, 'Porfavor seleccione una empresa'],
-        enum: ['Empresa 1', 'Empresa 2']
+        enum: ['Empresa', 'Empresa 2']
     },
-    descripcion: {
+    description: {
         type: String,
         required: [true, 'Porfavor ingrese una descripción del documento'],
     },
+    file: {
+        type: String,
+        require: true
+    }
 }, 
 {
     timestamps: true,

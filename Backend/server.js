@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 
 //Rutas usuario
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/documents', require('./routes/documentRoutes'));
 
 app.use(errorHandler);
 
