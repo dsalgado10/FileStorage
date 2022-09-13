@@ -20,8 +20,8 @@ const getDocuments = asyncHandler(async (req, res) => {
 // Ruta: POST /api/documents
 // Permiso: Privado
 const createDocument = asyncHandler(async (req, res) => {
-    const { product, description} = req.body;
-    if (!product || !description || !req.file) {
+    const { product, description, category } = req.body;
+    if (!product || !description || !category || !req.file) {
         res.status(400)
         throw new Error('Porfavor agregar un documento y descripción')
     }
@@ -33,6 +33,7 @@ const createDocument = asyncHandler(async (req, res) => {
     }
     const document = await Document.create({
         product,
+        category,
         description,
         user: req.user.id,
         file: req.file.originalname,

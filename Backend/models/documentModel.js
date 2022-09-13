@@ -9,7 +9,12 @@ const documentSchema = mongoose.Schema({
     product: {
         type: String,
         required: [true, 'Porfavor seleccione una empresa'],
-        enum: ['Empresa', 'Empresa 2']
+        enum: ['Empresa', 'Empresa']
+    },
+    category: {
+        type: String,
+        required: [true, 'Porfavor seleccione una categoría'],
+        enum: ['Contabilidad', 'Recursos Humanos', 'Tecnología', 'Producción', 'Marketing']
     },
     description: {
         type: String,

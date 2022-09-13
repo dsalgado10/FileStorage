@@ -34,9 +34,9 @@ function Documents() {
       <h1>Documentos</h1>
       <div className='tickets'>
         <div className='ticket-headings'>
+        <div>Archivo</div>
           <div>Empresa</div>
           <div>Fecha</div>
-          <div>Archivo</div>
           <div></div>
         </div>
         {documents.map((document) => (

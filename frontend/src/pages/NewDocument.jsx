@@ -13,6 +13,7 @@ function NewDocument() {
 
   const [newDocument, setNewDocument] = useState({
     product: 'Empresa',
+    category: 'Tecnología',
     description: '',
     file: ''
   });
@@ -44,10 +45,10 @@ function NewDocument() {
 
   const onSubmit = (e) => {
     e.preventDefault()
-
     const formData = new FormData();
     formData.append('file', newDocument.file);
     formData.append('product', newDocument.product);
+    formData.append('category', newDocument.category);
     formData.append('description', newDocument.description);
     console.log(newDocument.file);
     dispatch(createDocument(formData))
@@ -62,7 +63,7 @@ function NewDocument() {
       <BackButton url='/' />
       <section className='heading'>
         <h1>Subir Documento</h1>
-        <p>Porfavor llene el formulario</p>
+        <p>Por favor llene el formulario</p>
       </section>
 
       <section className='form'>
@@ -76,9 +77,21 @@ function NewDocument() {
               onChange={handleChange}
             >
               <option value='Empresa'>Empresa</option>
-              <option value='Empresa'>Empresa</option>
-              <option value='Empresa'>Empresa</option>
-              <option value='Empresa'>Empresa</option>
+            </select>
+          </div>
+          <div className='form-group'>
+            <label htmlFor='category'>Categoría</label>
+            <select
+              name='category'
+              id='category'
+              value={newDocument.category}
+              onChange={handleChange}
+            >
+              <option value='Contabilidad'>Contabilidad</option>
+              <option value='Recursos Humanos'>Recursos Humanos</option>
+              <option value='Tecnología'>Tecnología</option>
+              <option value='Producción'>Producción</option>
+              <option value='Marketing'>Marketing</option>
             </select>
           </div>
           <div className='form-group'>
