@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 const Document = require('../models/documentModel');
 
-// Mostrar documentos de usuario
+// Get documentos de usuario
 // Ruta: GET /api/documents
 // Permiso: Privado
 const getDocuments = asyncHandler(async (req, res) => {
@@ -15,6 +15,63 @@ const getDocuments = asyncHandler(async (req, res) => {
     const documents = await Document.find({ user: req.user.id });
     res.status(200).json(documents);
 })
+
+// @Get documento de usuario
+// @Tura: GET /api/documents/:id
+// @Permiso: Privado
+const getDocument = asyncHandler(async (req, res) => {
+    // Get user using the id in the JWT
+    const user = await User.findById(req.user.id)
+
+    if (!user) {
+        res.status(401)
+        throw new Error('Usuario no encontrado')
+    }
+
+    const document = await Document.findById(req.params.id)
+
+    if (!document) {
+        res.status(404)
+        throw new Error('Documento no encontrado')
+    }
+
+    if (document.user.toString() !== req.user.id) {
+        res.status(401)
+        throw new Error('Not Authorized')
+    }
+
+    res.status(200).json(document)
+})
+
+// @Delete document
+// @Ruta: /api/documents/:id
+// @Permiso:  Privado
+const deleteDocument = asyncHandler(async (req, res) => {
+    // Get user using the id in the JWT
+    const user = await User.findById(req.user.id)
+
+    if (!user) {
+        res.status(401)
+        throw new Error('User no encontrado')
+    }
+
+    const document = await Document.findById(req.params.id)
+
+    if (!document) {
+        res.status(404)
+        throw new Error('Documento no encontrado')
+    }
+
+    if (document.user.toString() !== req.user.id) {
+        res.status(401)
+        throw new Error('Not Authorized')
+    }
+
+    await document.remove()
+
+    res.status(200).json({ success: true })
+})
+
 
 // Crear nuevo documento
 // Ruta: POST /api/documents
@@ -43,5 +100,7 @@ const createDocument = asyncHandler(async (req, res) => {
 
 module.exports = {
     getDocuments,
-    createDocument
+    createDocument,
+    getDocument,
+    deleteDocument
 }
