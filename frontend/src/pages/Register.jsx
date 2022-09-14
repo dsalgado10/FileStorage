@@ -48,7 +48,7 @@ function Register() {
           // se obtiene un response correcto de la API o catch la AsyncThunkAction
           // rejection para mostrar un mensaje de error
           toast.success(`Usuario registrado - ${user.name}`)
-          navigate('/')
+          navigate('/documents')
         })
         .catch(toast.error)
     }

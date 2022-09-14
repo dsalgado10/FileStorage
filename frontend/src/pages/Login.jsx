@@ -40,7 +40,7 @@ function Login() {
         // obtener una buena respuesta de nuestra API o capturar AsyncThunkAction
         // rechazo para mostrar un mensaje de error
         toast.success(`Ingresado como ${user.name}`)
-        navigate('/')
+        navigate('/documents')
       })
       .catch(toast.error)
   }
