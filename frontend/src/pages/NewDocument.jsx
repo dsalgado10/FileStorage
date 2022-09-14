@@ -37,7 +37,7 @@ function NewDocument() {
 
     if (isSuccess) {
       dispatch(reset())
-      navigate('/documents')
+      navigate('/nuevo-documento')
     }
 
     dispatch(reset())
@@ -52,6 +52,7 @@ function NewDocument() {
     formData.append('description', newDocument.description);
     console.log(newDocument.file);
     dispatch(createDocument(formData))
+    navigate('/documents')
   }
 
   if (isLoading) {
@@ -60,7 +61,7 @@ function NewDocument() {
 
   return (
     <>
-      <BackButton url='/' />
+      <BackButton url='/documents' />
       <section className='heading'>
         <h1>Subir Documento</h1>
         <p>Por favor llene el formulario</p>

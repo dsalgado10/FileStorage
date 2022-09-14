@@ -1,9 +1,11 @@
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { getDocuments, reset } from '../features/documents/documentSlice'
-import Spinner from '../components/Spinner'
-import BackButton from '../components/BackButton'
-import TicketItem from '../components/TicketItem'
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDocuments, reset } from '../features/documents/documentSlice';
+import { Link } from 'react-router-dom';
+import { FaFileAlt } from 'react-icons/fa';
+import Spinner from '../components/Spinner';
+import BackButton from '../components/BackButton';
+import TicketItem from '../components/TicketItem';
 
 function Documents() {
   const { documents, isLoading, isSuccess } = useSelector(
@@ -43,6 +45,10 @@ function Documents() {
           <TicketItem key={document._id} document={document} />
         ))}
       </div>
+      <Link style={{ marginTop: '16px' }} to='/nuevo-documento' className="btn btn-block">
+        <FaFileAlt /> Subir nuevo documento
+      </Link>
+      
     </>
   )
 }

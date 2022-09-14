@@ -18,7 +18,7 @@ function Header() {
     return (
         <div className="header">
             <div className="logo">
-                <Link to='/' >
+                <Link to='/documents' >
                     Documentos
                 </Link>
             </div>
@@ -30,7 +30,7 @@ function Header() {
                 ) : (
                     <>
                         <li>
-                            <Link to="/login" >
+                            <Link to="/" >
                                 <FaSignInAlt /> Login
                             </Link>
                         </li>
