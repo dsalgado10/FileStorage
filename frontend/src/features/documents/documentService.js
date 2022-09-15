@@ -21,16 +21,33 @@ const getDocuments= async (token) => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }
+  };
 
   const response = await axios.get(API_URL, config)
 
   return response.data
-}
+};
+
+// Delete document
+const deleteDocument = async (documentId, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
+  const response = await axios.delete(
+    API_URL + documentId,
+    config
+  )
+
+  return response.data
+};
 
 const documentService = {
   createDocument,
   getDocuments,
+  deleteDocument,
 }
 
 export default documentService;
