@@ -50,6 +50,26 @@ export const getDocuments = createAsyncThunk(
   }
 );
 
+// Get user document
+export const getDocument = createAsyncThunk(
+  'document/get',
+  async (documentId, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token
+      return await documentService.getDocument(documentId, token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+);
+
 // Delete document
 export const deleteDocument = createAsyncThunk(
   'documents/delete',
@@ -100,6 +120,19 @@ export const documentSlice = createSlice({
         state.documents = action.payload
       })
       .addCase(getDocuments.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      .addCase(getDocument.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getDocument.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.document = action.payload
+      })
+      .addCase(getDocument.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload

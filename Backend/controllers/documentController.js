@@ -34,12 +34,11 @@ const getDocument = asyncHandler(async (req, res) => {
         res.status(404)
         throw new Error('Documento no encontrado')
     }
-
     if (document.user.toString() !== req.user.id) {
         res.status(401)
         throw new Error('Not Authorized')
     }
-
+    
     res.status(200).json(document)
 })
 
