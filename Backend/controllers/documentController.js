@@ -27,7 +27,9 @@ const getDocument = asyncHandler(async (req, res) => {
         res.status(401)
         throw new Error('Usuario no encontrado')
     }
+
     const document = await Document.findById(req.params.id)
+
     if (!document) {
         res.status(404)
         throw new Error('Documento no encontrado')
@@ -36,12 +38,7 @@ const getDocument = asyncHandler(async (req, res) => {
         res.status(401)
         throw new Error('Not Authorized')
     }
-
-    const archivo = await Document.find({});
-    //console.log(archivo[0].file)
-    //res.download(archivo[0].file); // video[0].file.path is the absolute path to the file
-
-    //console.log("DOCUMENT: ", document);
+    
     res.status(200).json(document)
 })
 
